@@ -1,4 +1,4 @@
-This is a reproduction of a bug in the [`phantom-camera`](https://github.com/ramokz/phantom-camera) Godot plugin.
+This is a reproduction of [issue #241 in the `phantom-camera` Godot addon](https://github.com/ramokz/phantom-camera/issues/241)
 
 There are two plugins installed:
 
