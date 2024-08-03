@@ -1,9 +1,47 @@
-[gd_scene load_steps=13 format=3 uid="uid://clethyps55458"]
+[gd_scene load_steps=19 format=3 uid="uid://clethyps55458"]
 
 [ext_resource type="Script" path="res://character.gd" id="1_2xuhh"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_6fnu1"]
 [ext_resource type="Script" path="res://addons/smoothing/smoothing.gd" id="2_8hfog"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="3_1roxd"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_p6soa"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3D_resource.gd" id="4_x6gkq"]
+
+[sub_resource type="Resource" id="Resource_vgtgm"]
+script = ExtResource("3_p6soa")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="Resource" id="Resource_lxk2v"]
+script = ExtResource("4_x6gkq")
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 75.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+
+[sub_resource type="Resource" id="Resource_g7eus"]
+script = ExtResource("3_p6soa")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="Resource" id="Resource_85a0x"]
+script = ExtResource("4_x6gkq")
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 75.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tlyfp"]
 
@@ -30,37 +68,26 @@ size = Vector3(5, 10, 5)
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, -6.50845e-16, 1.74393e-16, 1.74393e-16, 0.5, 0.866025, -6.50845e-16, -0.866025, 0.5, 6.24494e-12, 6.71065, 2.5)
+transform = Transform3D(1, -6.50845e-16, 1.74393e-16, 1.74393e-16, 0.5, 0.866025, -6.50845e-16, -0.866025, 0.5, 6.24495e-12, 6.71065, 2.5)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("2_6fnu1")
 
-[node name="SimpleFollowCamera" type="Node3D" parent="."]
-transform = Transform3D(1, -6.50845e-16, 1.74393e-16, 1.74393e-16, 0.5, 0.866025, -6.50845e-16, -0.866025, 0.5, 6.24494e-12, 6.71065, 2.5)
+[node name="SimpleFollowCamera" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1, -6.50845e-16, 1.74393e-16, 1.74393e-16, 0.5, 0.866025, -6.50845e-16, -0.866025, 0.5, 6.24495e-12, 6.71065, 2.5)
 script = ExtResource("3_1roxd")
-priority_override = false
 priority = 10
 follow_mode = 2
 follow_target = NodePath("../CharacterBody3D/Smoothing/MeshInstance3D")
-follow_parameters/target_offset = Vector3(2.08165e-12, 5, 2.5)
-follow_parameters/damping = false
-look_at_mode = 0
-tween_parameters = null
-tween_on_load = true
-inactive_update_mode = 0
-camera_3D_resource = null
+tween_resource = SubResource("Resource_vgtgm")
+camera_3d_resource = SubResource("Resource_lxk2v")
+follow_offset = Vector3(2.08165e-12, 5, 2.5)
 
 [node name="StaticCamera" type="Node3D" parent="."]
 transform = Transform3D(1, -6.50845e-16, 1.74393e-16, 1.74393e-16, 0.5, 0.866025, -6.50845e-16, -0.866025, 0.5, 6.24494e-12, 6.71065, 2.5)
 script = ExtResource("3_1roxd")
-priority_override = false
-priority = 0
-follow_mode = 0
-look_at_mode = 0
-tween_parameters = null
-tween_on_load = true
-inactive_update_mode = 0
-camera_3D_resource = null
+tween_resource = SubResource("Resource_g7eus")
+camera_3d_resource = SubResource("Resource_85a0x")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.71065, 0)
